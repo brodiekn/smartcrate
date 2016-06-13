@@ -42,7 +42,7 @@ contract smartcrate
         _
     }
 
-    event Aborted();
+    event Terminated();
     event PurchaseConfirmed();
     event ItemDelivered();
     event ItemReceived();
@@ -50,15 +50,15 @@ contract smartcrate
 
     /// If the product is not dank - determined by transporter
     /// or if product is never given to transporter
-    /// abort the entire smart contract from inception
+    /// terminate the entire smart contract from inception
     /// buyer is refunded complete escrow
-    function abort()
+    function terminate()
         onlyBuyer
         inState(State.Created)
     {
         buyer.send(this.balance);
         state = State.Inactive;
-        Aborted();
+        Terminated();
     }
     /// Confirm the purchase as agreed upon by both seller and transporter.
     /// Transaction has to include `10 * value` dinero.
